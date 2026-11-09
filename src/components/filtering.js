@@ -11,21 +11,16 @@ export function initFiltering(elements) {
     }
 
     const applyFiltering = (query, state, action) => {
-        // @todo: #4.2 — обработать очистку поля
-        if (action && action.name === 'clear') {
-            // Найти родительский элемент кнопки
-            const parent = action.parentElement;
-            // Найти input внутри родителя
-            const input = parent.querySelector('input, select');
-            if (input) {
-                input.value = '';
-            }
-            // Получить имя поля из data-field
-            const field = action.dataset.field;
-            if (field && state[field] !== undefined) {
-                state[field] = '';
+        // код с обработкой очистки поля
+        if(action){
+            if(action.name === 'clear'){
+                const parentElement = action.parentElement;
+                const inputElement = parentElement.querySelector('input');
+                inputElement.value = '';
+                state[action.dataset.field] = '';
             }
         }
+
         // @todo: #4.5 — отфильтровать данные, используя компаратор
         const filter = {};
         Object.keys(elements).forEach(key => {
